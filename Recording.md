@@ -128,7 +128,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 完成行人领域模型的完善，现已经可以在osc2文件中以peron:Walkerxx（xx表示选择的行人模型，支持01～48）来在场景中设置行人，并且可以通过speed、、position、lane等设置其行走的位置、速度等属性。
 
-https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/%E5%BD%95%E5%B1%8F%202024%E5%B9%B409%E6%9C%8819%E6%97%A5%2010%E6%97%B644%E5%88%8617%E7%A7%92.webm
+![walker](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/%E5%BD%95%E5%B1%8F%202024%E5%B9%B409%E6%9C%8819%E6%97%A5%2010%E6%97%B644%E5%88%8617%E7%A7%92.webm)
 
 下周计划：
 
