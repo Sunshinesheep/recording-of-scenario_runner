@@ -98,7 +98,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 
 
-![Snipaste_2024-09-06_16-53-41](/home/lhy/recording-of-scenario_runner/IMG/Snipaste_2024-09-06_16-53-41.png)
+![https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/Snipaste_2024-09-06_16-53-41.png)
 
 下周计划：
 
