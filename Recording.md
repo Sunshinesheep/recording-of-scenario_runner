@@ -110,7 +110,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 通过对osc_scenario_configuration.py、pedestrian.py的修改，行人模型以person在osc文件中表示，现已经可以通过编译。
 
-!([Snipaste_2024-09-13_15-54-06](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/Snipaste_2024-09-13_15-54-06.png)
+![Snipaste_2024-09-13_15-54-06](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/Snipaste_2024-09-13_15-54-06.png)
 
 但又出现新的问题，无论选择哪种模型，程序始终默认设置pedestrian为0001号模型，应该是carla_data_provider.py中的request_new_actor函数中的model参数传输出现问题。
 
