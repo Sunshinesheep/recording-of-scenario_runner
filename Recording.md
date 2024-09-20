@@ -98,7 +98,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 
 
-![s](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/Snipaste_2024-09-06_16-53-41.png)
+![s](IMG/Snipaste_2024-09-06_16-53-41.png)
 
 下周计划：
 
@@ -110,7 +110,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 通过对osc_scenario_configuration.py、pedestrian.py的修改，行人模型以person在osc文件中表示，现已经可以通过编译。
 
-![Snipaste_2024-09-13_15-54-06](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/Snipaste_2024-09-13_15-54-06.png)
+![Snipaste_2024-09-13_15-54-06](IMG/Snipaste_2024-09-13_15-54-06.png)
 
 但又出现新的问题，无论选择哪种模型，程序始终默认设置pedestrian为0001号模型，应该是carla_data_provider.py中的request_new_actor函数中的model参数传输出现问题。
 
@@ -128,7 +128,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 完成行人领域模型的完善，现已经可以在osc2文件中以peron:Walkerxx（xx表示选择的行人模型，支持01～48）来在场景中设置行人，并且可以通过speed、、position、lane等设置其行走的位置、速度等属性。
 
-![walker1](https://github.com/Sunshinesheep/recording-of-scenario_runner/blob/main/IMG/walker1.gif)
+![walker1](IMG/walker1.gif)
 
 下周计划：
 
