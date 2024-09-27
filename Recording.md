@@ -134,3 +134,36 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 开始着手完善运动修饰符
 
+
+
+## 2024.9.23～2024.9.27
+
+将目前增加编写的代码全部上传至github。
+
+浏览项目代码，确定目前关于运动修饰符号的实现涉及modifier.py、atomic_behaviors.py以及osc2_secnario.py文件。尝试在modifier.py中增加新的修饰符的定义。
+
+|     修饰符号      | 是否实现 | 是否定义modifier类 | 为何种类型 |            定义            |
+| :---------------: | :------: | :----------------: | :--------: | :------------------------: |
+|       speed       |    是    |         是         |   speed    | 目前仅用于确定对象运动速度 |
+|     position      |    是    |         是         |            |  确定对象在某个时间的位置  |
+|       lane        |    是    |         是         |            | 根据别的对象，确定所在车道 |
+|   acceleration    |    是    |         是         |   speed    |    确定加速度，进行加速    |
+|     keep_lane     |    是    |                    |            |    让对象保持在当前车道    |
+|   change_speed    |    是    |         是         |   speed    |     改变速度，可增可减     |
+|    change_lane    |    是    |         是         |  location  |      向左向右改变车道      |
+|   keep_position   |          |                    |            | 在规定时间内，保持位置不变 |
+|    keep_speed     |          |                    |            | 在规定时间内，保持速度不变 |
+|      lateral      |          |                    |            | 根据别的对象，确定横向距离 |
+|        yaw        |          |                    |            |      运动角度左右偏向      |
+|    orientation    |          |                    |            | 确定yaw\pitch\roll三个偏角 |
+|       alone       |          |                    |            |     沿着某一条路径运动     |
+| along_trajectory  |          |                    |            |      沿设定的轨迹运动      |
+|     distance      |          |                    |            |      确定对象移动距离      |
+| physical_movement |          |                    |            |  确定对象是否具有物理属性  |
+| avoid_collisions  |          |                    |            |        是否允许碰撞        |
+
+
+
+下周计划：
+
+尝试完善keep_position、keep_speed、lateral，并设置相关场景动作。

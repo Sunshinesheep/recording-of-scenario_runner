@@ -48,7 +48,7 @@ Modifier基类初始化参数为actor_name，和modifier_name。提供基本的�
 |    orientation    |          |                    |            | 确定yaw\pitch\roll三个偏角 |
 |       alone       |          |                    |            |     沿着某一条路径运动     |
 | along_trajectory  |          |                    |            |      沿设定的轨迹运动      |
-|     distance      |          |                    |            |          确定对象          |
+|     distance      |          |                    |            |      确定对象移动距离      |
 | physical_movement |          |                    |            |  确定对象是否具有物理属性  |
 | avoid_collisions  |          |                    |            |        是否允许碰撞        |
 
