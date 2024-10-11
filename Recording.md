@@ -151,19 +151,39 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 |     keep_lane     |    是    |                    |            |    让对象保持在当前车道    |
 |   change_speed    |    是    |         是         |   speed    |     改变速度，可增可减     |
 |    change_lane    |    是    |         是         |  location  |      向左向右改变车道      |
-|   keep_position   |          |                    |            | 在规定时间内，保持位置不变 |
-|    keep_speed     |          |                    |            | 在规定时间内，保持速度不变 |
-|      lateral      |          |                    |            | 根据别的对象，确定横向距离 |
-|        yaw        |          |                    |            |      运动角度左右偏向      |
-|    orientation    |          |                    |            | 确定yaw\pitch\roll三个偏角 |
-|       alone       |          |                    |            |     沿着某一条路径运动     |
-| along_trajectory  |          |                    |            |      沿设定的轨迹运动      |
-|     distance      |          |                    |            |      确定对象移动距离      |
-| physical_movement |          |                    |            |  确定对象是否具有物理属性  |
-| avoid_collisions  |          |                    |            |        是否允许碰撞        |
+|   keep_position   |    是    |                    |            | 在规定时间内，保持位置不变 |
+|    keep_speed     |    是    |                    |            | 在规定时间内，保持速度不变 |
+|      lateral      |          |         是         |            | 根据别的对象，确定横向距离 |
+|        yaw        |          |         是         |            |      运动角度左右偏向      |
+|    orientation    |          |         是         |            | 确定yaw\pitch\roll三个偏角 |
+|       alone       |          |         是         |            |     沿着某一条路径运动     |
+| along_trajectory  |          |         是         |            |      沿设定的轨迹运动      |
+|     distance      |          |         是         |            |      确定对象移动距离      |
+| physical_movement |          |         是         |            |  确定对象是否具有物理属性  |
+| avoid_collisions  |          |         是         |            |        是否允许碰撞        |
 
 
 
 下周计划：
 
 尝试完善keep_position、keep_speed、lateral，并设置相关场景动作。
+
+
+
+2024.9.30~2024.10.11
+
+对于不含参数的keep_position()和keep_speed()两个函数，均已经实现，并通过osc文件进行验证。但是对keep_position()的理解可能存在偏差。按照Openscenario2的解释，keep_position()函数是保证物体位置不变，但是实际场景生成中，好像用不到？存疑，后续深入场景构建时或许可以解答。
+
+
+
+对于其他存在参数的运动修饰符，目前已经编写完其各自的modifier类，包括各自参数的处理。以便之后的在`osc2_scenario.py`中完成类的构建以及函数调用。
+
+
+
+但实现函数仍存在困难。还需要了解这一模块的运行流程。
+
+
+
+下周计划：
+
+完成lateral、yaw、orientation，同时，确定运动修饰符号实现的必要性。
