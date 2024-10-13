@@ -18,19 +18,15 @@
 
 Modifier基类初始化参数为actor_name，和modifier_name。提供基本的获取参数的函数，以及设置属性的函数。
 
-
-
 目前来看，`osc2_scenario.py`中关于`visit_behavior_invocation`函数（line:694），其用于读取行为树节点中的修饰符并记录在`modifier_ins`和 `xxxx_modifiers`中。
 
-其中`OSC2Helper.flat_list`也不知道在搞什么
+其中`OSC2Helper.flat_list`是解决参数的多重列表问题，简单俩说就是将列表平铺开来，形成一个一维列表。
 
-有意思的是，几个修饰符代码编写逻辑基本上一样，或许可以为接下来的编写提供参考。`keep_lane`还搞特殊
+有意思的是，几个修饰符代码编写逻辑基本上一样，或许可以为接下来的编写提供参考。`keep_lane`还搞特殊。
 
 
 
 若要完成运动修饰符，需要着重关注`osc_scenario.py`和`atomic_behaviors.py`，可能涉及到`atomic_behaviors.py`的补充修改，需要先了解。
-
-
 
 |     修饰符号      | 是否实现 | 是否定义modifier类 | 为何种类型 |            定义            |
 | :---------------: | :------: | :----------------: | :--------: | :------------------------: |
@@ -68,6 +64,8 @@ Modifier基类初始化参数为actor_name，和modifier_name。提供基本的�
 | avoid_collisions  |                avoid_collisions(avoid: bool)                 |
 
 
+
+在`visit_behavior_invocation`函数中，对运动修饰符的处理分为两类。一类针对于没有参数的修饰符，一类是有参数的修饰符，此时，在这里就需要对参数进行处理，即，记录参数的数值。在这之后则是进行`process_location_modifier`和`process_speed_modifier`。
 
 
 

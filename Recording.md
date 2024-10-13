@@ -170,7 +170,7 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 
 
-2024.9.30~2024.10.11
+## 2024.9.30~2024.10.11
 
 对于不含参数的keep_position()和keep_speed()两个函数，均已经实现，并通过osc文件进行验证。但是对keep_position()的理解可能存在偏差。按照Openscenario2的解释，keep_position()函数是保证物体位置不变，但是实际场景生成中，好像用不到？存疑，后续深入场景构建时或许可以解答。
 
