@@ -187,3 +187,17 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 下周计划：
 
 完成lateral、yaw、orientation，同时，确定运动修饰符号实现的必要性。
+
+
+
+## 2024.10.14~2024.10.18
+
+完成`osc2_scenario.py`中`visit_behavior_invocation`函数中，各个修饰符的参数处理部分。并根据这些参数处理，修改`modifier.py`中的修饰符类，确保可以正常接受`visit_behavior_invocation`函数中处理保存的参数。
+
+
+
+关于修饰符实现的必要性，其中yaw和orientation重复性很高，代码编写同样具有重复性。alone和along_trajectory同样相似，但其实一个是设置地图中现有的固定道路，另一个是自己设定的轨迹，情况较为特殊。
+
+
+
+下周计划：继续完善，从`atomic_behaviors.py`入手，编写以及调用修饰符涉及的基本运动元素。
