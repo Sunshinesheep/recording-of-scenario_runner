@@ -37,16 +37,16 @@ Modifier基类初始化参数为actor_name，和modifier_name。提供基本的�
 |     keep_lane     |    是    |                    |            |    让对象保持在当前车道    |
 |   change_speed    |    是    |         是         |   speed    |     改变速度，可增可减     |
 |    change_lane    |    是    |         是         |  location  |      向左向右改变车道      |
-|   keep_position   |          |                    |            | 在规定时间内，保持位置不变 |
-|    keep_speed     |          |                    |            | 在规定时间内，保持速度不变 |
-|      lateral      |          |                    |            | 根据别的对象，确定横向距离 |
-|        yaw        |          |                    |            |      运动角度左右偏向      |
-|    orientation    |          |                    |            | 确定yaw\pitch\roll三个偏角 |
-|       alone       |          |                    |            |     沿着某一条路径运动     |
-| along_trajectory  |          |                    |            |      沿设定的轨迹运动      |
-|     distance      |          |                    |            |      确定对象移动距离      |
-| physical_movement |          |                    |            |  确定对象是否具有物理属性  |
-| avoid_collisions  |          |                    |            |        是否允许碰撞        |
+|   keep_position   |   是？   |                    |            | 在规定时间内，保持位置不变 |
+|    keep_speed     |    是    |                    |            | 在规定时间内，保持速度不变 |
+|      lateral      |          |         是         |            | 根据别的对象，确定横向距离 |
+|        yaw        |          |         是         |            |      运动角度左右偏向      |
+|    orientation    |          |         是         |            | 确定yaw\pitch\roll三个偏角 |
+|       alone       |          |         是         |            |     沿着某一条路径运动     |
+| along_trajectory  |          |         是         |            |      沿设定的轨迹运动      |
+|     distance      |          |         是         |            |      确定对象移动距离      |
+| physical_movement |          |         是         |            |  确定对象是否具有物理属性  |
+| avoid_collisions  |          |         是         |            |        是否允许碰撞        |
 
 
 
