@@ -22,13 +22,27 @@
 
 
 
-#### 运行config
+#### 运行self._load_and_run_scenario(config)
 
-​	运行这部分又涉及到OSC2Scenario类，初始化`scenario = OSC2Scenario()`,转入`osc2_scenario.py`。
+​	运行这部分又涉及到OSC2Scenario类，初始化`scenario = OSC2Scenario()`,转入`osc2_scenario.py`。初始化OSC2Scenario类后，又初始化其基类.
 
 > [!CAUTION]
 >
 > 重要部分
+
+​	OSC2Scenario这个类写明了是实现osc2场景，由BasicScenario继承而来。初始化OSC2Scenario类后，又初始化其基类。在其基类BasicScenario中，运行`behavior = self._create_behavior()`，实际上是调用子类的方法，位于`osc2_scenario.py`中。包括之后的`criteria = self._create_test_criteria()`也是。再回头看看`osc2_scenario.py`,`behavior = self._create_behavior()`运行时，初始化了`behavior_builder = self.BehaviorInit(self)`，然后又开始遍历了。最后`behavior`被加入到行为树`behavior_seq`中。
+
+
+
+#### 关于 visit那些事情
+
+​	上文两次提到遍历的事情，一次是解析osc2文件时的`conf_visitor.visit(self.ast_tree)`，另一次是运动行为的遍历`behavior_builder.visit(self.ast_tree)`，参数都是`self.ast_tree`。分别是`self.ast_tree = OSC2Helper.gen_osc2_ast(self.filename)`和`self.ast_tree = OSC2Helper.gen_osc2_ast(self.osc2_file)`。
+
+​	无论是Behaviornit还是Confinit，都是继承自ASTVisitor。
+
+​	先看`ast_visitor.py`吧，BaseVisitor为基类，ASTVisitor为子类。其实仔细看，ASTVisitor类里面都是一个基本的函数，大多数都是被BehaviorInit和Confnit进行覆写。从Basevisitor开始，万恶之源`visit`函数，`tree.accept()`实际上已经和`ast_node.py`绑定在一起了。这里的`tree.accept(self)`，本质上是看`ast_node.py`里面各类节点相对应的节点。而accept里面则是visitor的各类操作。
+
+
 
 ​	接下来，轮到已构造的Scenariomanager类登场，进行场景载入和场景运行。场景载入部分`load_scenario()`，好像没什么说的。场景运行部分`run_scenario`，貌似也没啥说的。
 
@@ -40,6 +54,12 @@
 
 
 
+### OSC2Helper的解释
+
+
+
+
+
 ### 车辆模型全部支持部分
 
 ​	这部分没什么难度，主要就是针对于`vehicle.py`进行修改，其实观察之前的车辆模型的定义就可知。先定义最初的基类，再在基类的基础上设置各个车辆类型的定义。项目目前对车辆的定义也仅仅停留在设置`model`参数上，根据carla官方文档提供的各类已存在车辆模型的`model`来进行补充。最后对`osc2_congifuration.py`中的vehicle_type进行补充，就OK了。
@@ -48,13 +68,21 @@
 
 ​	代码量实际并不大，但是弄懂确实花费了不少功夫。就目前我所知，通过osc2语言来在场景中构建物理模型，本质上还是通过Carla的API调用。Carla的官方文档中写明，blueprint提供了目前carla已支持的模型。其中就有行人模型，从01~48号人物模型。那么，对于`pedestrians.py`的编写，借鉴`vehicle.py`不失为一个好主意。同样设置一个基类，再通过继承，再编写每个行人模型不同model参数。这里不难。
 
-​	坑人的是接下来，如何让这个”编译器“能够识别定义行人的osc2语言，然后在场景中构建出来呢？先在`osc2_configuration.py`中把pedestrians_type写一下吧……
+​	坑人的是接下来，如何让这个”编译器“能够识别定义行人的osc2语言，然后在场景中构建出来呢？先在`osc2_scenairo_configuration.py`中把pedestrians_type写一下吧……
 
-​	主要还是在`osc_configuration.py`里面编写，老样子，照葫芦画瓢，参考对车辆模型的处理。在函数中写个基本的函数来处理。
+​	主要还是在`osc2_scenario_configuration.py`里面编写，老样子，照葫芦画瓢，参考对车辆模型的处理。在函数中写个基本的函数来处理。
 
-​	其实在看了`carlaprovidedata.py`，发现这里已经处理了osc2中对物理模型的语言的编译。所以实际上我需要做的也只有定义行人模型，再加上一些对行人特定的函数来处理罢了。
+​	其实在看了`carla_data_provide.py`，发现这里已经处理了osc2中对物理模型的语言的编译。所以实际上我需要做的也只有定义行人模型，再加上一些对行人特定的函数来处理罢了。
 
 ​	这样来看似乎也挺容易，但真去编写的时候，头都大了。 
+
+
+
+### 关于行为树——py_trees
+
+​	难搞，我以为只是生成普通的二叉树。哪知道这玩意是行为树，大多用于构建游戏中AI的行动。用在场景生成，好像也没毛病。所以，在此开个新坑，学习行为树。哎哎哎，又让人头大。
+
+
 
 ### 运动修饰符部分
 
