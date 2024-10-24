@@ -34,6 +34,12 @@
 
 
 
+另外一点就是，当初始化OSC2ScenarioConfiguration类的时候，`self.ast_tree = OSC2Helper.gen_osc2_ast(self.filename)`说明了已经构建了ast树。
+
+包括之后的OSC2Scenario也是，`self.ast_tree = OSC2Helper.gen_osc2_ast(self.osc2_file)`也构建了ast树。
+
+
+
 #### 关于 visit那些事情
 
 ​	上文两次提到遍历的事情，一次是解析osc2文件时的`conf_visitor.visit(self.ast_tree)`，另一次是运动行为的遍历`behavior_builder.visit(self.ast_tree)`，参数都是`self.ast_tree`。分别是`self.ast_tree = OSC2Helper.gen_osc2_ast(self.filename)`和`self.ast_tree = OSC2Helper.gen_osc2_ast(self.osc2_file)`。
@@ -41,6 +47,8 @@
 ​	无论是Behaviornit还是Confinit，都是继承自ASTVisitor。
 
 ​	先看`ast_visitor.py`吧，BaseVisitor为基类，ASTVisitor为子类。其实仔细看，ASTVisitor类里面都是一个基本的函数，大多数都是被BehaviorInit和Confnit进行覆写。从Basevisitor开始，万恶之源`visit`函数，`tree.accept()`实际上已经和`ast_node.py`绑定在一起了。这里的`tree.accept(self)`，本质上是看`ast_node.py`里面各类节点相对应的节点。而accept里面则是visitor的各类操作。
+
+​	
 
 
 
@@ -56,7 +64,17 @@
 
 ### OSC2Helper的解释
 
+`osc2_helper.py`是用来提供一些便捷函数的，无需初始化类，拿来就能用。
 
+例如最常见的`flat_list`函数，就是将嵌套的列表转为一位的列表，多用于参数处理的时候。
+
+
+
+#### gen_osc2_ast
+
+最为重要的就是`gen_osc2_ast`函数，osc2文件名作为参数输入，经过antlr4解析，构建抽象语法树。
+
+借助了antlr4的能力，构建出抽象语法树AST，并将根节点返回。
 
 
 
