@@ -100,6 +100,220 @@
 
 ​	难搞，我以为只是生成普通的二叉树。哪知道这玩意是行为树，大多用于构建游戏中AI的行动。用在场景生成，好像也没毛病。所以，在此开个新坑，学习行为树。哎哎哎，又让人头大。
 
+##### `Behaviours`：
+
+基本框架：
+
+```python
+#!/usr/bin/env python3
+
+# -*- coding: utf-8 -*-
+
+
+import py_trees
+
+import random
+
+
+
+class Foo(py_trees.behaviour.Behaviour):
+
+    def __init__(self, name):
+
+        """
+
+        Minimal one-time initialisation. A good rule of thumb is
+
+        to only include the initialisation relevant for being able
+
+        to insert this behaviour in a tree for offline rendering to
+
+        dot graphs.
+
+
+        Other one-time initialisation requirements should be met via
+
+        the setup() method.
+
+        """
+
+        super(Foo, self).__init__(name)
+
+
+    def setup(self):
+
+        """
+
+        When is this called?
+
+          This function should be either manually called by your program
+
+          to setup this behaviour alone, or more commonly, via
+
+          :meth:`~py_trees.behaviour.Behaviour.setup_with_descendants`
+
+          or :meth:`~py_trees.trees.BehaviourTree.setup`, both of which
+
+          will iterate over this behaviour, it's children (it's children's
+
+          children ...) calling :meth:`~py_trees.behaviour.Behaviour.setup`
+
+          on each in turn.
+
+
+          If you have vital initialisation necessary to the success
+
+          execution of your behaviour, put a guard in your
+
+          :meth:`~py_trees.behaviour.Behaviour.initialise` method
+
+          to protect against entry without having been setup.
+
+
+        What to do here?
+
+          Delayed one-time initialisation that would otherwise interfere
+
+          with offline rendering of this behaviour in a tree to dot graph
+
+          or validation of the behaviour's configuration.
+
+
+          Good examples include:
+
+
+          - Hardware or driver initialisation
+
+          - Middleware initialisation (e.g. ROS pubs/subs/services)
+
+          - A parallel checking for a valid policy configuration after
+
+            children have been added or removed
+
+        """
+
+        self.logger.debug("  %s [Foo::setup()]" % self.name)
+
+
+    def initialise(self):
+
+        """
+
+        When is this called?
+
+          The first time your behaviour is ticked and anytime the
+
+          status is not RUNNING thereafter.
+
+
+        What to do here?
+
+          Any initialisation you need before putting your behaviour
+
+          to work.
+
+        """
+
+        self.logger.debug("  %s [Foo::initialise()]" % self.name)
+
+
+    def update(self):
+
+        """
+
+        When is this called?
+
+          Every time your behaviour is ticked.
+
+
+        What to do here?
+
+          - Triggering, checking, monitoring. Anything...but do not block!
+
+          - Set a feedback message
+
+          - return a py_trees.common.Status.[RUNNING, SUCCESS, FAILURE]
+
+        """
+
+        self.logger.debug("  %s [Foo::update()]" % self.name)
+
+        ready_to_make_a_decision = random.choice([True, False])
+
+        decision = random.choice([True, False])
+
+        if not ready_to_make_a_decision:
+
+            return py_trees.common.Status.RUNNING
+
+        elif decision:
+
+            self.feedback_message = "We are not bar!"
+
+            return py_trees.common.Status.SUCCESS
+
+        else:
+
+            self.feedback_message = "Uh oh"
+
+            return py_trees.common.Status.FAILURE
+
+
+    def terminate(self, new_status):
+
+        """
+
+        When is this called?
+
+           Whenever your behaviour switches to a non-running state.
+
+            - SUCCESS || FAILURE : your behaviour's work cycle has finished
+
+            - INVALID : a higher priority branch has interrupted, or shutting down
+
+        """
+
+        self.logger.debug("  %s [Foo::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
+```
+
+在基本框架中，`update()`方法中需要确定行为的状态。状态用于影响行为树之后的运行方向。py_trees.common.Status(value)用于确定状态。
+
+分为FAILURE：操作失败；INVALID：未初始化/处于非活动状态；RUNNING：正在执行；SUCCESS：操作完成，结果成功。
+
+
+
+##### `Composites`：
+
+包含了Sequence、Parallel和Selector。行为树就是这样，通过这几个元素来进行组合创作。
+
+###### Selector：
+
+根据级联优先级执行子项。 `py_trees.composites.Selector(name,memory,children)`，selector一次执行它的每一个子行为，指导其中一个成功，或者全部失败。
+
+name：复合行为的名称。memory：如果上一个节点在running，使用该节点进行恢复。children：要添加的子行为列表。
+
+###### Sequence：
+
+顺序执行子行为，如果某个子行为FAILURE或者RUNNING，则序列停止，父项采用此结果。如果到达最后一个子项，无论如何都输出这个结果。`py_trees.composites.Sequence(name,memory,children)`，参数解释同上。
+
+###### Parallel：
+
+没有策略时，所有子行为都返回SUCCESS时，才返回SUCCESS。有策略时，只有指定子行为在返回SUCCESS时才能返回SUCCESS。
+
+`py_trees.composites.Parallel(name,policy,children)`
+
+
+
+##### `Decorators`:
+
+扣帽子的过程？
+
+
+
+##### `Blackboards`：
+
+
+
 
 
 ### 运动修饰符部分
