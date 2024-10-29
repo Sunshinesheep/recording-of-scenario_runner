@@ -356,6 +356,38 @@ for i in range(1, 8):
 
 
 
+### 项目中调用py_trees的部分函数
+
+`py_trees.composites.Sequence(policy, name)`：
+
+Sequence类，顺序执行
+
+`py_trees.composites.Parallel(policy, name)`：
+
+Parallel类，并行执行
+
+`policy = py_trees.common.ParallelPolicy.SUCCESS_ON_ALL/ONE`:
+
+制定的并行行为的策略，SUCCESS_ALL：只有所有子行为都返回SUCCESS，才返回SUCCESS；SUCCESSONONE：只要至少有一个子行为返回SUCCESS，则返回SUCCESS。
+
+`py_trees.behaviour.Behaciour`:
+
+作为一个类，准确来说是其它行为的父类，拥有initialise()、setup()等初始函数。例如上面的框架。
+
+`py_trees.blackboard.Blackborad()`:
+
+共享数据专用类，
+
+`py_trees.blackboard.Blackboard().set()`:
+
+在黑板上设置变量，参数为name和value，组成一个键值对
+
+`py_trees.common.Status.SUCCESS/RUNNING/FAILURE/INVALID`:
+
+关于行为检查的状态，分别是顺利完成、正在执行、操作失败、未被选中
+
+
+
 
 
 ### 运动修饰符部分
