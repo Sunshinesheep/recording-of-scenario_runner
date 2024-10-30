@@ -388,6 +388,22 @@ Parallel类，并行执行
 
 
 
+### 关于Carla
+
+
+
+### Carla与行为树
+
+具体的实现其实还没弄懂，但是，还是找出点路子。不然也对不起我看这么长时间。哎哎哎 
+
+对于`atomic_behaviors.py`里面的每一个原子类型动作来说，init纯属是设置一些变量，方便后续处理。initialist主要是获取一些actor信息。重要的是update，在这里，通过Carla的API，获取actor的属性，甚至获取其控制器的类。例如，在UniformAcceleration中，这里的control则是控制汽车的类，类中包含油门、刹车之类的。修改完之后，通过API——apply_control实行改变后的control。从而控制carla场景中的汽车的行为。
+
+额……好像就是这么实现Carla和行为树数据交互的？再看看吧。
+
+
+
+不过从这里还是能够发现，`CaraDataProvider`的作用还是挺大的。可以提供actor位置、标号之类的。
+
 
 
 ### 运动修饰符部分
@@ -449,3 +465,4 @@ Parallel类，并行执行
 
 
 
+tansform貌似是指位置和角度（position和orientation）？
