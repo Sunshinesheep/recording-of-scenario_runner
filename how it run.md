@@ -466,3 +466,5 @@ Parallel类，并行执行
 
 
 tansform貌似是指位置和角度（position和orientation）？
+
+再看看ActorTransformSetter()，挺有趣的，其中的calculate_distance着重看一下
