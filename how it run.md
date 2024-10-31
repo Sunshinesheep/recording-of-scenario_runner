@@ -184,7 +184,9 @@ class Foo(py_trees.behaviour.Behaviour):
 
           - Hardware or driver initialisation
 
-          - Middleware initialisation (e.g. ROS pubs/subs/services)
+          - Middleware initialisation (e.g.
+            print(f"The car changes lanes to the {av_side} for {lane_changes} lanes.")
+            npc_name = modifier.get_acto ROS pubs/subs/services)
 
           - A parallel checking for a valid policy configuration after
 
@@ -228,7 +230,9 @@ class Foo(py_trees.behaviour.Behaviour):
 
         What to do here?
 
-          - Triggering, checking, monitoring. Anything...but do not block!
+          - Triggering, checking, monitorin
+            print(f"The car changes lanes to the {av_side} for {lane_changes} lanes.")
+            npc_name = modifier.get_actog. Anything...but do not block!
 
           - Set a feedback message
 
@@ -273,7 +277,9 @@ class Foo(py_trees.behaviour.Behaviour):
 
         """
 
-        self.logger.debug("  %s [Foo::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
+        self.logger.debug("  %s [Foo::termi
+            print(f"The car changes lanes to the {av_side} for {lane_changes} lanes.")
+            npc_name = modifier.get_actonate().terminate()][%s->%s]" % (self.name, self.status, new_status))
 ```
 
 在基本框架中，`update()`方法中需要确定行为的状态。状态用于影响行为树之后的运行方向。py_trees.common.Status(value)用于确定状态。
@@ -322,7 +328,9 @@ class Foo(py_trees.behaviour.Behaviour):
     def __init__(self, name):
         super().__init__(name=name)
         self.blackboard = self.attach_blackboard_client(name="Foo Global")
-        self.parameters = self.attach_blackboard_client(name="Foo Params", namespace="foo_parameters_")
+        self.parameters = self.attach_blac
+            print(f"The car changes lanes to the {av_side} for {lane_changes} lanes.")
+            npc_name = modifier.get_actokboard_client(name="Foo Params", namespace="foo_parameters_")
         self.state = self.attach_blackboard_client(name="Foo State", namespace="foo_state_")
 
         # create a key 'foo_parameters_init' on the blackboard
@@ -390,6 +398,58 @@ Parallel类，并行执行
 
 ### 关于Carla
 
+这些说明一些简单的，且在项目中常见的类、变量以及一些API吧。一下内容均来自与Carla官方文档。
+
+`transform`：
+
+贯穿全项目的重要类，定义是actor的位置和角度（position与rotation）。其实文档也写明了，transform类的实例变量就包括location和rotation。
+
+Location类呢，其实就是三位坐标，包括x、y、z。
+
+Rotation类呢，也就是在三维世界中，定义的三个角度，pitch、yaw、roll。开飞机？
+
+
+
+`waypoint`：
+
+也是贯穿全项目，在`atomic_behavior`中大量出现。可以理解为是导向点，用来指导运动中的actor下一步去哪。
+
+该类提供的方法使用的实在太多了。
+
+方法：
+
+next(distance)和previous(distance)是确定下一个导向点，参数distance是用于确定导向点距离自己的距离，最后返回一个Waypoint。
+
+get_right_lane()和get_left_lane()被用于actor变道，其运行原理是在当前车道的左或者右车道生成一个导向点，并返回。
+
+
+
+`Actor`：
+
+妥妥的主角。
+
+常见的实例变量type_id表示actor的model类型，例如vehicle.ford.mustang，is_alive判断actor是否已被删除。
+
+方法：
+
+get_location():获取actor的位置(position)
+
+get_transform():不必多说，获取强大的transform
+
+get_velocity():获取actor的速度
+
+get_world():获取actor所在的世界
+
+
+
+`Map`：
+
+
+
+`vehicle`：
+
+
+
 
 
 ### Carla与行为树
@@ -440,7 +500,7 @@ Parallel类，并行执行
 | along_trajectory  |          |         是         |            |      沿设定的轨迹运动      |
 |     distance      |          |         是         |            |      确定对象移动距离      |
 | physical_movement |          |         是         |            |  确定对象是否具有物理属性  |
-| avoid_collisions  |          |         是         |            |        是否允许碰撞        |
+| avoid_collisions  |   是?    |         是         |            |        是否允许碰撞        |
 
 
 
@@ -467,4 +527,17 @@ Parallel类，并行执行
 
 tansform貌似是指位置和角度（position和orientation）？
 
-再看看ActorTransformSetter()，挺有趣的，其中的calculate_distance着重看一下
+再看看ActorTransformSetter()，挺有趣的，其中的calculate_distance着重看一下,参数里面还有个physics，看看能不能用，作为physical_movement的实现
+
+
+
+`process__modifier`函数还行，看看就会了。但是对于`process_location_modifier`函数，有点难懂。
+
+有意思的是，这个函数里面，特意把有at、refer_car的参数的运动修饰符分开处理。没有这些的则是直接像处理speed类函数一样，用个原子行为搞定就完事了。关于at，还分为start和end两个时间段来处理。
+
+
+
+关于waypoint，可以理解为导向点，指向下一步位置
+
+
+
