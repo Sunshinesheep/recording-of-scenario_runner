@@ -263,3 +263,18 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 
 下周计划，编写新的行为树节点类型，即定义新的行为。实现关于rotation的设置。
+
+
+
+## 2024.11.04～2024.11.08
+
+完成yaw、orientation和distance的编写。
+
+实现的原理还是通过`atomic_behavior.py`中的类，通过Carla的API来修改场景中actor的参数。但yaw这类修改角度的操作并不能明显表示出来。可能actor模型的行为还是受限于waypoint。
+
+另外对于一个车辆而言，可改变的角度只能是yaw角度，其他两个角度的修改没有什么意义。毕竟车辆在道路上行驶，属于是二维平面上的运动。
+
+
+
+下周计划，完成最后两个修饰符，对`osc2scenarion.py`中的`process_speed_modifier`和`process_location_modifier`两个函数进行改写。
+
