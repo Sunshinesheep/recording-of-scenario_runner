@@ -235,3 +235,180 @@ event e1 is @e2 if (x > y)     # Emits e1 when e2 happens and the Boolean expres
 ### 整体物理模型
 
 ![](IMG/all.png)
+
+
+
+### 动作行为
+
+![](IMG/act1.png)
+
+![](IMG/act2.png)
+
+
+
+### 运动修饰符的通用参数
+
+- at
+
+  all：在此阶段保持不变
+
+  start：在开始阶段成立
+
+  end：在结束阶段成立
+
+- movement_mode
+
+  monotonous：遵循物理规律
+
+  other：跟踪参考车辆的“预计”运动
+
+- track
+
+  actual：跟踪参考车辆的实际移动。这是默认设置。
+
+  projected：跟踪参考车辆的“预计”运动
+
+- shape
+
+  貌似没啥用
+
+
+
+### 环境模型
+
+![](IMG/env.png)
+
+
+
+### 环境行为
+
+![](IMG/env_act.png)
+
+##### 使用示例：
+
+空气：
+
+```
+# All three variables
+environment.air(15.0celsius, 1050.0hPa, 0.65)
+environment.air(temperature: 15.0celsius, pressure: 1050.0hPa, relative_humidity: 0.65)
+
+# Only temperature and relative humidity (presure is not modified)
+environment.air(15.0celsius, relative_humidity: 0.65)
+environment.air(temperature: 15.0celsius, relative_humidity: 0.65)
+
+# Only temperature
+environment.air(15.0celsius)
+environment.air(temperature: 15.0celsius)
+
+# Only pressure
+environment.air(pressure: 1050.0hPa)
+
+# Only relative_humidity
+environment.air(relative_humidity: 0.65)
+```
+
+
+
+下雨：
+
+```
+environment.rain(20.0mmph)
+environment.rain(intensity: 20.0mmph)
+```
+
+
+
+下雪：
+
+```
+environment.snow(10.0mmph)
+environment.snow(intensity: 10.0mmph)
+```
+
+
+
+风：
+
+```
+# Both variables
+environment.wind(3.0mps, 45deg)
+environment.wind(speed: 3.0mps, direction: 45deg)
+
+# Only wind speed
+environment.wind(3.0mps)
+environment.wind(speed: 3.0mps)
+
+# Only wind direction
+environment.wind(direction: 45deg)
+```
+
+
+
+雾：
+
+```
+environment.fog(0.2km)
+environment.fog(visual_range: 0.2km)
+```
+
+
+
+云：
+
+```
+environment.clouds(4)
+environment.clouds(cloudiness: 4)
+```
+
+
+
+太阳月亮：
+
+```
+# For moon position
+environment.assign_celestial_position(environment.moon, 270deg, 90deg)
+environment.assign_celestial_position(environment.moon, azimuth: 270deg, elevation: 90deg)
+
+# For sun position
+environment.assign_celestial_position(environment.sun, 100deg, 40deg)
+environment.assign_celestial_position(environment.sun, azimuth: 100deg, elevation: 40deg)
+
+# For sun, assign only azimuth
+environment.assign_celestial_position(environment.sun, azimuth: 100deg)
+
+# For sun, assign only elevation
+environment.assign_celestial_position(environment.sun, elevation: 40deg)
+```
+
+
+
+### 红绿灯
+
+暂时搁置
+
+
+
+### 规定好的单位
+
+建议使用type.osc，一劳永逸。
+
+
+
+### 代码规范
+
+- 缩进是四个空格字符
+- UTF-8编码
+- 逗号后面空一格
+- 冒号后面空一格
+- 关键字前后各空一格
+- 运算符前后各空一格
+- #用于注释
+- \用于换行
+- 命名采用下划线式
+
+
+
+### 拓展
+
+还是省省吧。先把前面搞定了再说。
