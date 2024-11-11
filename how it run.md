@@ -240,7 +240,8 @@ class Foo(py_trees.behaviour.Behaviour):
 
         """
 
-        self.logger.debug("  %s [Foo::update()]" % self.name)
+        self.logger.debug("  %s 
+        [Foo::update()]" % self.name)
 
         ready_to_make_a_decision = random.choice([True, False])
 
@@ -544,3 +545,19 @@ tansform貌似是指位置和角度（position和orientation）？
 如果涉及到yaw和orientation此类运动修饰符，rad单位没有被录入，所以代码编写得异常难受，先处理一下这种特殊情况，回头再解决。
 
 不过目前最大问题就是，不能看见测试的效果，尽管改变了角度，但是也看不出来，不知道是代码编写问题，还是场景生成的问题，难搞。
+
+
+
+### 天气
+
+为了搞这个，又看了下openscenario2的文档，以及carla的文档。osc2的文档还是过于理想化了，其中提到的天气的参数carla不支持。既然项目是基于Carla平台，那就以Carla为准。
+
+先列个表，确定一下Carla具有哪些参数，能够实现哪些天气。
+
+|       |                             air                              |                          rain                          |                             wind                             |                             fog                              |                            clouds                            | sun moon                                                     |
+| ----- | :----------------------------------------------------------: | :----------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------ |
+| carla |                    **wetness** (*float*)                     |              **precipitation** (*float*)               |                 **wind_intensity** (*float*)                 | **fog_falloff** (*float*)<br />**fog_density** (*float*)<br />**fog_distance** (*float - meters*) |                   **cloudiness** (*float*)                   | **sun_azimuth_angle** (*float - degrees*)<br />**sun_altitude_angle** (*float - degrees*) |
+|       | 湿度强度。它只影响 RGB 相机传感器。值范围介于 0 到 100 之间。 | 降雨强度值的范围从 0 到 100,0 完全没有，100 表示大雨。 | 控制风的强度，其值从 0（完全无风）到 100（强风）。风确实会影响雨向和树叶，因此限制此值以避免动画问题。 | 雾的密度（如比质量）从 0 到无穷大。值越大，它的密度和重量就越大，雾的高度就越小。<br />雾浓度或厚度。它只影响 RGB 相机传感器。值范围介于 0 到 100 之间。<br />Fog start distance （雾开始距离）。值范围从 0 到无限。 | 值范围从 0 到 100,0表示晴朗的天空，100 表示完全被云层覆盖。  | 太阳的方位角。值范围介于 0 到 360 之间。零是由 Unreal Engine 确定的球体中的原点。<br />太阳的高度角。值范围从 -90 到 90，分别对应于午夜和中午。 |
+| osc2  |                   relative_humidity(float)                   |                    intensity(speed)                    |                         speed(speed)                         |                    visual_range（length）                    |                      cloudiness（uint）                      | sun<br />moon<br />azimuth(angle)                            |
+|       |                      地面上的相对湿度。                      |              以体积通量表示的全球降水强度              |                             风速                             |                          可视化距离                          | 范围从 0 表示完全晴朗的天空到 8 表示完全阴暗的天空。值 9 表示天空被遮挡，例如在浓雾中。不得使用高于 9 的值。 | 选择太阳或者月亮，确定方位角                                 |
+
