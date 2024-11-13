@@ -561,3 +561,30 @@ tansform貌似是指位置和角度（position和orientation）？
 | osc2  |                   relative_humidity(float)                   |                    intensity(speed)                    |                         speed(speed)                         |                    visual_range（length）                    |                      cloudiness（uint）                      | sun<br />moon<br />azimuth(angle)                            |
 |       |                      地面上的相对湿度。                      |              以体积通量表示的全球降水强度              |                             风速                             |                          可视化距离                          | 范围从 0 表示完全晴朗的天空到 8 表示完全阴暗的天空。值 9 表示天空被遮挡，例如在浓雾中。不得使用高于 9 的值。 | 选择太阳或者月亮，确定方位角                                 |
 
+先像运动修饰符那样写吧……回头再修改
+
+
+
+### Visit模块
+
+开坑！最难搞的模块，探究ast树是怎么被访问的。
+
+不看还行，一看全是没实现的。好多函数只有一个pass。
+
+
+
+回到`osc2_scenario_configuration.py`来看，天气或许可以从这里入手。
+
+这里涉及到一个嵌套类，ConfinInit嵌套在OSC2ScenarioConfiguration中，而且visit之类的函数均写在这个类里面。ConfigInit设置father_ins，这很有趣，因为下面的visit函数调用的father_ins.xxx均是对OSC2ScenarioConfiguration的属性进行修改。为啥？Python的嵌套类特有的语法？其实是实例化ConfigInit时，把self传进去了，仅此而已。
+
+纵观整个`OSC2ScenarioConfiguration.py`，本质是就是在构建场景中需要的模型，天气，变量之类的，因此，这里不涉及什么树的构建。OSC2ScenarioConfiguration类中的属性就是用于读取并储存这些信息。
+
+
+
+### scope和symbol
+
+一个掌管符号的使用范围，一个确认符号属于哪一类
+
+![](IMG/scope.png)
+
+![](IMG/symbol.png)
