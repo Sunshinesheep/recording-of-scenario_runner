@@ -563,6 +563,10 @@ tansform貌似是指位置和角度（position和orientation）？
 
 先像运动修饰符那样写吧……回头再修改
 
+新发现：
+
+目前来看，天气的实现完全可以效仿Path的实现，用actor修饰environment，modifier修饰fog、rain等天气状况。具体涉及到的函数是`osc2_scenario_configuration.py`中的visit_modifier_invocation函数。就目前来看，在该函数中新增一个关于天气环境的处理就可以了。
+
 
 
 ### Visit模块
