@@ -538,7 +538,7 @@ tansform貌似是指位置和角度（position和orientation）？
 
 
 
-关于waypoint，可以理解为导向点，指向下一步位置
+关于waypoint，可以理解为导向点，指向下一步位置Snipaste_2024-11-15_09-53-12.
 
 
 
@@ -561,11 +561,25 @@ tansform貌似是指位置和角度（position和orientation）？
 | osc2  |                   relative_humidity(float)                   |                    intensity(speed)                    |                         speed(speed)                         |                    visual_range（length）                    |                      cloudiness（uint）                      | sun<br />moon<br />azimuth(angle)                            |
 |       |                      地面上的相对湿度。                      |              以体积通量表示的全球降水强度              |                             风速                             |                          可视化距离                          | 范围从 0 表示完全晴朗的天空到 8 表示完全阴暗的天空。值 9 表示天空被遮挡，例如在浓雾中。不得使用高于 9 的值。 | 选择太阳或者月亮，确定方位角                                 |
 
-先像运动修饰符那样写吧……回头再修改
+~~先像运动修饰符那样写吧……回头再修改~~
 
 新发现：
 
-目前来看，天气的实现完全可以效仿Path的实现，用actor修饰environment，modifier修饰fog、rain等天气状况。具体涉及到的函数是`osc2_scenario_configuration.py`中的visit_modifier_invocation函数。就目前来看，在该函数中新增一个关于天气环境的处理就可以了。
+~~目前来看，天气的实现完全可以效仿Path的实现，用actor修饰environment，modifier修饰fog、rain等天气状况。具体涉及到的函数是`osc2_scenario_configuration.py`中的visit_modifier_invocation函数。就目前来看，在该函数中新增一个关于天气环境的处理就可以了。~~
+
+~~记得再看看python函数中参数带*的含义，在项目中有点难懂。~~
+
+现在来看，weather的设置貌似比path还简单一些，所以上述方案并不是最佳解。
+
+目前构建的`environment.py`里面是纯函数，用来修改osc2config类中的weather类，里面写的都是修改天气的函数。具体调用是在`osc2_scenario_configuration.py`中的visit_modifier_invocation函数中，这个函数主要是用来识别需要调用的函数，处理参数，以及调用。编写完成。
+
+
+
+这几个天气函数，最难定义的就是fog，涉及三个参数，后续还需要继续研究一下，确定各个参数的值来满足最准确的场景天气。
+
+
+
+还有一点就是，目前没有把参数作为phycial类型输入，只是简单的float，后续需要修改一下。
 
 
 

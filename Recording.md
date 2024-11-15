@@ -278,3 +278,44 @@ https://carla.readthedocs.io/en/0.9.13/bp_library/#vehicle
 
 下周计划，完成最后两个修饰符，对`osc2scenarion.py`中的`process_speed_modifier`和`process_location_modifier`两个函数进行改写。
 
+
+
+## 2024.11.11～2024.11.15
+
+最后两个运动修饰符号先搁置一下。
+
+完善了天气系统，目前可支持雨天、雾天、白天夜晚、刮风、多云，以及修改空气湿度。
+
+基本原始场景：
+
+![](IMG/base.png)
+
+雨天（不是很明显）：
+
+![](IMG/rain.png)
+
+雾天（没有具体的雾气，可能是参数设置的问题）：
+
+![](IMG/fog.png)
+
+刮风（不是很明显）：
+
+![](IMG/wind.png)
+
+多云：
+
+![](IMG/clouds.png)
+
+黑夜：
+
+![](IMG/moon.png)
+
+空气湿度提高：
+
+![](IMG/wet.png)
+
+基本的函数已编写实现，但是在参数这里，目前只接受float类型，并没有按照需求以phycial类型输入，这是需要修改完善的地方。
+
+
+
+下周计划：对项目进行测试并完善，解决目前遗留的问题，例如phycial类型参数的处理。
