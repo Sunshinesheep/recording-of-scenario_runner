@@ -86,7 +86,7 @@
 
 ​	代码量实际并不大，但是弄懂确实花费了不少功夫。就目前我所知，通过osc2语言来在场景中构建物理模型，本质上还是通过Carla的API调用。Carla的官方文档中写明，blueprint提供了目前carla已支持的模型。其中就有行人模型，从01~48号人物模型。那么，对于`pedestrians.py`的编写，借鉴`vehicle.py`不失为一个好主意。同样设置一个基类，再通过继承，再编写每个行人模型不同model参数。这里不难。
 
-​	坑人的是接下来，如何让这个”编译器“能够识别定义行人的osc2语言，然后在场景中构建出来呢？先在`osc2_scenairo_configuration.py`中把pedestrians_type写一下吧……
+​	坑人的是接下来，如何让这个”编译器“能够识别定义行人的osc2语言，然后在场景中构建出来呢？先在`osc2_scenairo_configuration.py`中把pedestrians_type写一下吧……the replay by 1 second (+SHIFT = 10 seconds)
 
 ​	主要还是在`osc2_scenario_configuration.py`里面编写，老样子，照葫芦画瓢，参考对车辆模型的处理。在函数中写个基本的函数来处理。
 
@@ -577,9 +577,11 @@ tansform貌似是指位置和角度（position和orientation）？
 
 这几个天气函数，最难定义的就是fog，涉及三个参数，后续还需要继续研究一下，确定各个参数的值来满足最准确的场景天气。
 
+PS：三个参数都调了好几遍，怎么都弄不出雾天效果，都开始怀疑是不是Carla不支持了。
 
 
-还有一点就是，目前没有把参数作为phycial类型输入，只是简单的float，后续需要修改一下。
+
+~~还有一点就是，目前没有把参数作为phycial类型输入，只是简单的float，后续需要修改一下。~~已经搞定。实现方法是参考之前完善运动修饰符时的操作，处理参数
 
 
 
