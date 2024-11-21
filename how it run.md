@@ -497,7 +497,7 @@ get_world():获取actor所在的世界
 |      lateral      |          |         是         |            | 根据别的对象，确定横向距离 |
 |        yaw        |          |         是         |            |      运动角度左右偏向      |
 |    orientation    |          |         是         |            | 确定yaw\pitch\roll三个偏角 |
-|       alone       |          |         是         |            |     沿着某一条路径运动     |
+|       along       |          |         是         |            |     沿着某一条路径运动     |
 | along_trajectory  |          |         是         |            |      沿设定的轨迹运动      |
 |     distance      |          |         是         |            |      确定对象移动距离      |
 | physical_movement |          |         是         |            |  确定对象是否具有物理属性  |
@@ -512,7 +512,7 @@ get_world():获取actor所在的世界
 |      lateral      | lateral(distance: length, side_of: vehicle, side: side_left_right <br />[, measure_by: lat_measure_by]<br /> [, <standard-movement-parameters>]) |
 |        yaw        | yaw(angle: angle <br />[, <standard-movement-parameters>]) <br />yaw(angle: angle, relative_to: physical_object<br /> [, measure_by: yaw_measure_by ] <br />[, <standard-movement-parameters>]) |
 |    orientation    | orientation(yaw: angle  [, pitch: angle] [, roll: angle] <br />[, relative_to: physical_object] [, measure_by: orientation_measured_by] <br />[, <standard-movement-parameters>]) <br /><br />orientation(pitch: angle  [, roll: angle] [, yaw: angle] <br />[, relative_to: physical_object] [, measure_by: orientation_measured_by] <br />[, <standard-movement-parameters>]) <br /><br />orientation(roll: angle  [, yaw: angle] [, pitch: angle] <br />[, relative_to: physical_object] [, measure_by: orientation_measured_by] <br />[, <standard-movement-parameters>]) |
-|       alone       | along(route: route <br />[, start_offset: length] [, end_offset: length]<br /> [, <standard-movement-parameters>]) |
+|       along       | along(route: route <br />[, start_offset: length] [, end_offset: length]<br /> [, <standard-movement-parameters>]) |
 | along_trajectory  | along_trajectory(trajectory: trajectory <br />[, start_offset: length] [, end_offset: length] <br />[, <standard-movement-parameters>]) |
 |     distance      | distance(distance: length)<br /> [, <standard-movement-parameters>] |
 | physical_movement |         physical_movement(option: movement_options)          |

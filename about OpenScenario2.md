@@ -236,6 +236,58 @@ event e1 is @e2 if (x > y)     # Emits e1 when e2 happens and the Boolean expres
 
 ![](IMG/all.png)
 
+### Ation
+
+使用方法均是xxx.action(xxx)
+
+可移动物体：
+
+|       Action        |                 定义                 |                             用法                             |
+| :-----------------: | :----------------------------------: | :----------------------------------------------------------: |
+|        move         |           可移动物体的移动           |    movable_object.move([, <inherited action parameters>])    |
+|   assign_position   |            移动到指定位置            | movable_object.assign_position(position: position_3d [, <inherited action parameters>])<br/><br/>movable_object.assign_position(route_point: route_point [, <inherited action parameters>])<br/><br/>movable_object.assign_position(odr_point: odr_point [, <inherited action parameters>]) |
+| assign_orientation  |            移动到指定方向            | movable_object.assign_orientation(orientation: orientation_3d [, <inherited action parameters>]) |
+|    assign_speed     |             达到指定速度             | movable_object.assign_speed(speed: speed [, <inherited action parameters>]) |
+| assign_acceleration |            达到指定加速度            | movable_object.assign_acceleration(acceleration: acceleration[, <inherited action parameters>]) |
+|     replay_path     |              沿着路径走              | movable_object.replay_path(absolute: path<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>])<br/><br/>movable_object.replay_path(relative: relative_path, reference: physical_object, transform: relative_transform,<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>]) |
+|  replay_trajectory  |            沿着指定轨迹走            | movable_object.replay_trajectory(absolute: trajectory<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>])<br/><br/>movable_object.replay_trajectory(relative: relative_trajectory, reference: physical_object, transform: relative_transform,<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>]) |
+|  remain_stationary  |               保持静止               | movable_object.remain_stationary([, <inherited action parameters>]) |
+|   change_position   | 创建从角色的当前位置到目标位置的路径 | movable_object.change_position(target_xyz: position_3d, interpolation: path_interpolation, on_road_network: bool<br/>[, <inherited action parameters>])<br/><br/>movable_object.change_position(target_st: route_point, interpolation: path_interpolation, on_road_network: bool<br/>[, <inherited action parameters>])<br/><br/>movable_object.change_position(target_odr: odr_point, interpolation: path_interpolation, on_road_network: bool<br/>[, <inherited action parameters>]) |
+|    change_speed     |              修改其速度              | movable_object.change_speed(target: speed<br/>[, rate_profile: dynamic_profile [, rate_peak: acceleration]] [, <inherited action parameters>]) |
+|     keep_speed      |              保持其速度              | movable_object.keep_speed([, <inherited action parameters>]) |
+| change_acceleration |             修改其加速度             | movable_object.change_acceleration(target: acceleration<br/>[, rate_profile: dynamic_profile [, rate_peak: jerk]] [, <inherited action parameters>]) |
+|  keep_acceleration  |             保持其加速度             | movable_object.keep_acceleration([, <inherited action parameters>]) |
+|     follow_path     |          紧密地跟随目标路径          | movable_object.follow_path(absolute: path<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>])<br/><br/>movable_object.follow_path(relative: relative_path, reference: physical_object, transform: relative_transform,<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>]) |
+|  follow_trajectory  |          紧密地跟随目标轨迹          | movable_object.follow_trajectory(absolute: trajectory<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>])<br/><br/>movable_object.follow_trajectory(relative: relative_trajectory, reference: physical_object, transform: relative_transform,<br/>[, start_offset: length] [, end_offset: length] [, <inherited action parameters>]) |
+
+
+
+车辆：
+
+|        Action        |                 定义                 |                             用法                             |
+| :------------------: | :----------------------------------: | :----------------------------------------------------------: |
+|        drive         |               启动车辆               |       vehicle.drive([, <inherited action parameters>])       |
+|     follow_lane      |         保持在 lane 的边界内         | vehicle.follow_lane([<inherited action parameters>])<br/><br/>vehicle.follow_lane(offset: length<br/>[, rate_profile: dynamic_profile [, rate_peak: speed]] [, <inherited action parameters>])<br/><br/>vehicle.follow_lane(target: lane<br/>[, offset: length] [, rate_profile: dynamic_profile] [, rate_peak: speed] [, <inherited action parameters>]) |
+|     change_lane      |       动作结束时移动到目标车道       | vehicle.change_lane(num_of_lanes: uint, side: lane_change_side, reference: physical_object,<br/>[, offset: length] [, rate_profile: dynamic_profile [, rate_peak: speed]] [, <inherited action parameters>])<br/><br/>vehicle.change_lane(target: lane<br/>[, offset: length] [, rate_profile: dynamic_profile [, rate_peak: speed]] [, <inherited action parameters>]) |
+|   change_time_gap    |     将其与引用实体的时间间隔更改     | vehicle.change_time_gap(target: time, direction: gap_direction, reference: physical_object, [, <inherited action parameters>]) |
+|    keep_time_gap     |        与参考实体保持时间间隔        | vehicle.keep_time_gap(reference: physical_object, direction: road_distance_direction [, <inherited action parameters>]) |
+|   change_space_gap   |        将其间距更改为引用实体        | vehicle.change_space_gap(target: length, direction: gap_direction, reference: physical_object, [, <inherited action parameters>]) |
+|    keep_space_gap    |          与参考实体保持间距          | vehicle.keep_space_gap(reference: physical_object, direction: road_distance_direction [, <inherited action parameters>]) |
+| change_time_headway  |      更改其到引用实体的时间间隔      | vehicle.change_time_headway(target: time, direction: headway_direction, reference: physical_object [, <inherited action parameters>]) |
+|  keep_time_headway   |       保持到引用实体的时间间隔       | vehicle.keep_time_headway(reference: physical_object [, <inherited action parameters>]) |
+| change_space_headway |            更改为引用实体            | vehicle.change_space_headway(target: length, direction: headway_direction, reference: physical_object [, <inherited action parameters>]) |
+|  keep_space_headway  |        与引用实体保持一个间隔        | vehicle.keep_space_headway(reference: physical_object [, <inherited action parameters>]) |
+|   connect_trailer    | 将拖车的耦合器连接到牵引车上的接收器 |                             xxx                              |
+|  disconnect_trailer  | 断开拖车的耦合器与牵引车接收器的连接 |                             xxx                              |
+
+
+
+行人：
+
+| Action |   定义   |                      用法                      |
+| :----: | :------: | :--------------------------------------------: |
+|  walk  | 行人行走 | person.walk([, <inherited action parameters>]) |
+
 
 
 ### 动作行为
