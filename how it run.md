@@ -608,3 +608,13 @@ PS：三个参数都调了好几遍，怎么都弄不出雾天效果，都开始
 ![](IMG/scope.png)
 
 ![](IMG/symbol.png)
+
+
+
+### Action模块
+
+什么是action。xxx.xxx()。例如，ego_vehicle.drive()之类。
+
+首先在`osc2_scenario.py`中的visit_behavior_invocation()函数中被处理。
+
+明天从已经写好的那个函数入手，看看到底是怎么运行的。
