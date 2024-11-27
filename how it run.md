@@ -526,6 +526,10 @@ get_world():获取actor所在的世界
 
 
 
+- [x] 突发奇想奥，把之前的keep_position改成0kph不就行了，哈。
+
+
+
 tansform貌似是指位置和角度（position和orientation）？
 
 再看看ActorTransformSetter()，挺有趣的，其中的calculate_distance着重看一下,参数里面还有个physics，看看能不能用，作为physical_movement的实现
@@ -617,4 +621,13 @@ PS：三个参数都调了好几遍，怎么都弄不出雾天效果，都开始
 
 首先在`osc2_scenario.py`中的visit_behavior_invocation()函数中被处理。
 
-明天从已经写好的那个函数入手，看看到底是怎么运行的。
+~~明天从已经写好的那个函数入手，看看到底是怎么运行的。~~
+
+找到了，是在`osc2_scenario_configuration.py`中，依旧是visit_modifier_invocaton函数中
+
+解决drive和walk的问题，但只限于表面，仅仅是加上一个判定条件，用于确定字符是否匹配罢了。因此，在更深的层面上并没有改变。
+
+
+
+
+
