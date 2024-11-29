@@ -341,3 +341,23 @@ rain(20mmph) #表示降雨量
 
 
 下周计划，解决action类的问题，包含drive和walk之类函数的混淆问题。
+
+
+
+## 2024.11.25～2024.11.29
+
+解决drive和walk混淆的问题，vehicle只能只能使用drive，person只能使用walk。并且如果使用其他任何单词都会报错，都会报错。
+
+![](IMG/error_about_walk.png)
+
+![](/home/lhy/recording-of-scenario_runner/IMG/error_about_drive.png)
+
+关于2024.9.30～2024.10.11期间，keep_position()的问题。在阅读OpenScenario2文档Action类时，有了新的看法。该运动修饰符可以理解为，让正在运动的actor立即停下，并保持静止。基于这个理解，重新改写这部分代码，实现该功能。
+
+
+
+下周计划;
+
+参考车辆，设置行人的action模块。
+
+对代码进行测试，准备提交代码。
