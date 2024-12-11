@@ -396,3 +396,14 @@ rain(20mmph) #表示降雨量
 
 了解xodr地图的导入
 
+
+
+## 2024.12.9~2024.12.13
+
+
+
+顺便解决一下关于设置车辆位置、颜色，错误的报错信息。
+
+![](/home/lhy/recording-of-scenario_runner/IMG/error.png)
+
+修改`osc2_scenario.py`中的`visit_modifier_invocation()`函数即可
