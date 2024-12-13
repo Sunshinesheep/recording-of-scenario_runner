@@ -494,13 +494,13 @@ get_world():获取actor所在的世界
 |    change_lane    |    是    |         是         |  location  |      向左向右改变车道      |
 |   keep_position   |   是？   |                    |            | 在规定时间内，保持位置不变 |
 |    keep_speed     |    是    |                    |            | 在规定时间内，保持速度不变 |
-|      lateral      |          |         是         |            | 根据别的对象，确定横向距离 |
-|        yaw        |          |         是         |            |      运动角度左右偏向      |
-|    orientation    |          |         是         |            | 确定yaw\pitch\roll三个偏角 |
+|      lateral      |    是    |         是         |            | 根据别的对象，确定横向距离 |
+|        yaw        |    是    |         是         |            |      运动角度左右偏向      |
+|    orientation    |    是    |         是         |            | 确定yaw\pitch\roll三个偏角 |
 |       along       |          |         是         |            |     沿着某一条路径运动     |
 | along_trajectory  |          |         是         |            |      沿设定的轨迹运动      |
-|     distance      |          |         是         |            |      确定对象移动距离      |
-| physical_movement |          |         是         |            |  确定对象是否具有物理属性  |
+|     distance      |    是    |         是         |            |      确定对象移动距离      |
+| physical_movement |    是    |         是         |            |  确定对象是否具有物理属性  |
 | avoid_collisions  |   是?    |         是         |            |        是否允许碰撞        |
 
 
@@ -650,3 +650,7 @@ path.path_min_driving_lanes这个函数是逗我玩的，只接受了参数并�
 不过有些奇怪的是，如果选择town2或者town3之类的会报错。
 
 具体实现是通过`osc2_scenario_configuration.py`中最后面的`_set_carla_town`函数，client.load_world()实现地图的载入。
+
+
+
+不过目前来看，Carla地图的导入基本上先是通过Roadrunner构造地图，再通过与carla的交互才能导入。感觉从osc2文件中导入不太现实。
